@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Stackly Banking</title>
+
+    <link rel="stylesheet" href="style.css" />
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet"
+    />
+</head>
+<body>
+
+    <!-- LOADER -->
+    <div id="loader" class="loader">
+        <img src="stackly-logo.webp" class="loader-logo-img" alt="Stackly Logo" />
+        <h2>Stackly Banking</h2>
+        <p>Loading secure banking platform...</p>
+    </div>
+
+    <!-- BACKGROUND ANIMATION -->
+    <div class="bg-orbs">
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+    </div>
+
+    <main id="app" class="hide">
+
+        <!-- LANDING PAGE -->
+        <section id="landingPage" class="page active-page">
+
+            <!-- HEADER -->
+            <header class="site-header">
+                <div class="brand">
+                    <img src="stackly-logo.webp" class="brand-logo" alt="Stackly Logo" />
+                </div>
+
+                <button class="menu-btn" onclick="toggleMenu()">☰</button>
+
+                <nav id="headerNav" class="header-nav">
+                    <button onclick="scrollToSection('home')">Home</button>
+                    <button onclick="scrollToSection('accounts')">Accounts</button>
+                    <button onclick="scrollToSection('loans')">Loans</button>
+                    <button onclick="scrollToSection('cards')">Cards</button>
+                    <button onclick="scrollToSection('security')">Security</button>
+                    <button onclick="scrollToSection('support')">Support</button>
+                    <button class="mobile-login" onclick="showLogin()">Login</button>
+                </nav>
+
+                <button class="login-top-btn" onclick="showLogin()">Login</button>
+            </header>
+
+            <!-- HERO -->
+            <section id="home" class="hero-section">
+                <div class="hero-left">
+                    <span class="tag">Trusted Digital Banking</span>
+
+                    <h1>Bank Smarter with Stackly Banking</h1>
+
+                    <p>
+                        A modern responsive static banking website with animated landing page,
+                        login, sign-up, user dashboard, admin dashboard, cards, transfers,
+                        analytics and settings.
+                    </p>
+
+                    <div class="hero-actions">
+                        <button class="primary" onclick="showLogin()">Login Now</button>
+                        <button class="outline" onclick="scrollToSection('accounts')">
+                            View Services
+                        </button>
+                    </div>
+
+                    <div class="hero-stats">
+                        <div>
+                            <h3>25K+</h3>
+                            <p>Customers</p>
+                        </div>
+
+                        <div>
+                            <h3>₹8Cr+</h3>
+                            <p>Daily Volume</p>
+                        </div>
+
+                        <div>
+                            <h3>99.9%</h3>
+                            <p>Secure Uptime</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="hero-right">
+                    <div class="premium-card">
+                        <div class="card-row">
+                            <span>Stackly Premium</span>
+                            <b>VISA</b>
+                        </div>
+
+                        <h2>**** **** **** 4821</h2>
+
+                        <div class="card-row">
+                            <span>Dhamu</span>
+                            <span>12/29</span>
+                        </div>
+                    </div>
+
+                    <div class="float-card salary">+ ₹75,000 Salary Credited</div>
+                    <div class="float-card safe">🔒 Secure Login Active</div>
+                    <div class="float-card rating">⭐ 4.9 Banking Rating</div>
+                </div>
+            </section>
+
+            <!-- ACCOUNTS -->
+            <section id="accounts" class="landing-section">
+                <div class="section-title">
+                    <span>Accounts</span>
+                    <h2>Bank Account Services</h2>
+                    <p>Static banking pages for savings, current, deposits and digital banking needs.</p>
+                </div>
+
+                <div class="service-grid">
+                    <div class="service-card">
+                        <div class="icon">🏦</div>
+                        <h3>Savings Account</h3>
+                        <p>Manage money, savings goals, balance and transactions.</p>
+                        <button onclick="showLogin()">Open Dashboard</button>
+                    </div>
+
+                    <div class="service-card">
+                        <div class="icon">💼</div>
+                        <h3>Current Account</h3>
+                        <p>Business-friendly banking with fast transfer support.</p>
+                        <button onclick="showLogin()">Login Access</button>
+                    </div>
+
+                    <div class="service-card">
+                        <div class="icon">📈</div>
+                        <h3>Fixed Deposit</h3>
+                        <p>Static deposit overview with growth and interest details.</p>
+                        <button onclick="scrollToSection('support')">Know More</button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- LOANS -->
+            <section id="loans" class="landing-section split-section">
+                <div>
+                    <span class="tag">Loan Services</span>
+                    <h2>Easy Banking Loans</h2>
+                    <p>
+                        Display personal, home, business and education loan services using an
+                        animated static banking layout.
+                    </p>
+
+                    <div class="loan-list">
+                        <div>
+                            <b>🏠 Home Loan</b>
+                            <span>Starting from 8.4%</span>
+                        </div>
+
+                        <div>
+                            <b>🚗 Vehicle Loan</b>
+                            <span>Quick approval flow</span>
+                        </div>
+
+                        <div>
+                            <b>🎓 Education Loan</b>
+                            <span>Student-friendly plans</span>
+                        </div>
+
+                        <div>
+                            <b>💼 Business Loan</b>
+                            <span>For growing companies</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="loan-calculator">
+                    <h3>Static EMI Preview</h3>
+
+                    <label>Loan Amount</label>
+                    <input value="₹5,00,000" readonly />
+
+                    <label>Interest Rate</label>
+                    <input value="8.5%" readonly />
+
+                    <label>Estimated EMI</label>
+                    <input value="₹10,245 / month" readonly />
+
+                    <button class="primary" onclick="showLogin()">Apply After Login</button>
+                </div>
+            </section>
+
+            <!-- CARDS -->
+            <section id="cards" class="landing-section">
+                <div class="section-title">
+                    <span>Cards</span>
+                    <h2>Credit & Debit Cards</h2>
+                    <p>Animated static card section for banking website presentation.</p>
+                </div>
+
+                <div class="card-showcase">
+                    <div class="mini-bank-card dark-card">
+                        <h3>Stackly Debit</h3>
+                        <h2>**** 2418</h2>
+                        <p>Daily spending and ATM access</p>
+                    </div>
+
+                    <div class="mini-bank-card gold-card">
+                        <h3>Stackly Credit</h3>
+                        <h2>**** 9981</h2>
+                        <p>Rewards, travel and cashback</p>
+                    </div>
+
+                    <div class="mini-bank-card teal-card">
+                        <h3>Stackly Business</h3>
+                        <h2>**** 7105</h2>
+                        <p>Business payments and limits</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SECURITY -->
+            <section id="security" class="landing-section split-section">
+                <div class="security-box">
+                    <div>🔐</div>
+                    <h3>Protected Banking Login</h3>
+                    <p>Role-based User and Admin login with animated dashboard navigation.</p>
+                </div>
+
+                <div>
+                    <span class="tag">Security</span>
+                    <h2>Banking Safety Features</h2>
+                    <p>
+                        This static website includes secure-looking UI sections, 404 page,
+                        login form, sign-up form, remember me, social buttons, and dashboard logout.
+                    </p>
+
+                    <div class="security-points">
+                        <p>✅ Role-wise User/Admin dashboard</p>
+                        <p>✅ Animated login and sign-up screens</p>
+                        <p>✅ 404 page for forgot password and social buttons</p>
+                        <p>✅ Static cards, transfers, analytics and settings pages</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SUPPORT -->
+            <section id="support" class="landing-section">
+                <div class="section-title">
+                    <span>Support</span>
+                    <h2>Banking Help & Contact</h2>
+                    <p>Static contact cards for customer support and banking help.</p>
+                </div>
+
+                <div class="support-grid">
+                    <div class="support-card">
+                        <h3>📞 Customer Care</h3>
+                        <p>70107 92745</p>
+                    </div>
+
+                    <div class="support-card">
+                        <h3>✉️ Email Support</h3>
+                        <p>support@stacklybank.com</p>
+                    </div>
+
+                    <div class="support-card">
+                        <h3>📍 Branch Help</h3>
+                        <p>Find your nearest Stackly branch.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- FOOTER -->
+            <footer class="footer">
+                <img src="stackly-logo.webp" class="footer-logo" alt="Stackly Logo" />
+                <p>
+                    Responsive static front-end banking website with landing page,
+                    login, dashboards and animations.
+                </p>
+            </footer>
+        </section>
+
+        <!-- LOGIN PAGE -->
+        <section id="loginPage" class="page auth-page">
+            <div class="auth-card">
+                <div class="auth-left">
+                    <img src="stackly-logo.webp" class="auth-logo" alt="Stackly Logo" />
+                    <h1>Welcome Back</h1>
+                    <p>Login as User or Admin and access the animated role-wise banking dashboard.</p>
+
+                    <div class="feature">🔐 Secure Role Login</div>
+                    <div class="feature">📊 Dashboard, Cards & Analytics</div>
+                    <div class="feature">⚙️ Transfers and Settings</div>
+                </div>
+
+                <div class="auth-right">
+                    <h2>Login</h2>
+
+                    <form id="loginForm">
+                        <label>Role</label>
+                        <select id="loginRole">
+                            <option value="user">User</option>
+                            <option value="admin">Admin</option>
+                        </select>
+
+                        <label>Email ID</label>
+                        <input id="loginEmail" type="email" placeholder="Enter Email" required />
+
+                        <label>Password</label>
+                        <input id="loginPassword" type="password" placeholder="Enter password" required />
+
+                        <div class="form-row">
+                            <label class="remember">
+                                <input type="checkbox" />
+                                Remember me
+                            </label>
+
+                            <button type="button" class="link" onclick="open404()">Forgot?</button>
+                        </div>
+
+                        <button class="primary full-btn" type="submit">Login</button>
+
+                        <p class="center">or login with</p>
+
+                        <div class="socials">
+                            <button type="button" onclick="open404()">G</button>
+                            <button type="button" onclick="open404()">f</button>
+                            <button type="button" onclick="open404()">in</button>
+                        </div>
+
+                        <p class="center">
+                            New account?
+                            <button type="button" class="link" onclick="showSignup()">Sign Up</button>
+                        </p>
+
+                        <button type="button" class="back-home" onclick="showLanding()">Back Home</button>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+        <!-- SIGNUP PAGE -->
+        <section id="signupPage" class="page auth-page">
+            <div class="auth-card">
+                <div class="auth-left signup-left">
+                    <img src="stackly-logo.webp" class="auth-logo" alt="Stackly Logo" />
+                    <h1>Create Account</h1>
+                    <p>Sign up and then login to open User or Admin static banking dashboard.</p>
+
+                    <div class="feature">✅ Quick Registration</div>
+                    <div class="feature">👤 User/Admin Role</div>
+                    <div class="feature">⚡ Animated Interface</div>
+                </div>
+
+                <div class="auth-right">
+                    <h2>Sign Up</h2>
+
+                    <form id="signupForm">
+                        <label>Role</label>
+                        <select id="signupRole">
+                            <option value="user">User</option>
+                            <option value="admin">Admin</option>
+                        </select>
+
+                        <label>Name</label>
+                        <input id="signupName" type="text" placeholder="Enter name" required />
+
+                        <label>Email ID</label>
+                        <input id="signupEmail" type="email" placeholder="example@gmail.com" required />
+
+                        <label>Password</label>
+                        <input id="signupPassword" type="password" placeholder="Create password" required />
+
+                        <label>Confirm Password</label>
+                        <input id="signupConfirm" type="password" placeholder="Confirm password" required />
+
+                        <button class="primary full-btn" type="submit">Sign Up</button>
+
+                        <p class="center">
+                            Already account?
+                            <button type="button" class="link" onclick="showLogin()">Login</button>
+                        </p>
+
+                        <button type="button" class="back-home" onclick="showLanding()">Back Home</button>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+        <!-- 404 PAGE -->
+        <section id="notFoundPage" class="page not-found">
+            <div class="not-card">
+                <img src="stackly-logo.webp" class="not-logo" alt="Stackly Logo" />
+                <h1>404</h1>
+                <h2>Page Not Found</h2>
+                <p>This Stackly Banking page is not available right now.</p>
+                <button class="primary" onclick="showLanding()">Back to Home</button>
+            </div>
+        </section>
+
+        <!-- DASHBOARD -->
+        <section id="dashboardPage" class="page dashboard-page">
+            <aside id="sidebar" class="sidebar">
+                <div class="side-brand">
+                    <img src="stackly-logo.webp" class="side-logo" alt="Stackly Logo" />
+                    <button class="close-side" onclick="toggleSidebar()">×</button>
+                </div>
+
+                <nav>
+                    <button class="side-link active" data-page="dashboard">🏠 Dashboard</button>
+                    <button class="side-link" data-page="cards">💳 Cards</button>
+                    <button class="side-link" data-page="transfers">💸 Transfers</button>
+                    <button class="side-link" data-page="analytics">📊 Analytics</button>
+                    <button class="side-link" data-page="settings">⚙️ Settings</button>
+                </nav>
+            </aside>
+
+            <div class="dash-main">
+                <header class="topbar">
+                    <button class="dash-menu" onclick="toggleSidebar()">☰</button>
+
+                    <div>
+                        <h1 id="greeting">Hi User</h1>
+                        <p id="roleText">Welcome to Stackly Banking</p>
+                    </div>
+
+                    <div class="profile">
+                        <span id="profileEmail">user@gmail.com</span>
+                        <button onclick="logout()">Logout</button>
+                    </div>
+                </header>
+
+                <section id="dashboardContent" class="content-section active-content"></section>
+                <section id="cardsContent" class="content-section"></section>
+                <section id="transfersContent" class="content-section"></section>
+                <section id="analyticsContent" class="content-section"></section>
+                <section id="settingsContent" class="content-section"></section>
+            </div>
+        </section>
+    </main>
+
+    <div id="toast" class="toast"></div>
+
+    <script src="script.js"></script>
+</body>
+</html>
