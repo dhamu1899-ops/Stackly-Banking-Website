@@ -1826,3 +1826,524 @@ select:focus {
         height: 50px;
     }
 }
+
+
+/* =========================================================
+   UPDATED MOBILE DASHBOARD TOPBAR
+   Left hamburger | Center name/email | Right round logout initial
+========================================================= */
+.topbar {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    align-items: center;
+    gap: 16px;
+}
+
+.topbar-center {
+    text-align: center;
+    justify-self: center;
+    min-width: 0;
+}
+
+.topbar-center h1,
+.topbar-center p,
+.topbar-center small {
+    display: block;
+}
+
+.topbar-center p {
+    margin-top: 4px;
+    color: #008080;
+    font-weight: 800;
+    word-break: break-word;
+}
+
+.topbar-center small {
+    margin-top: 2px;
+    color: #64748b;
+    font-weight: 700;
+}
+
+.logout-avatar {
+    width: 54px;
+    height: 54px;
+    padding: 0 !important;
+    border: none;
+    border-radius: 50% !important;
+    display: grid;
+    place-items: center;
+    color: white;
+    background: #ef4444;
+    font-size: 20px;
+    font-weight: 900;
+    cursor: pointer;
+}
+
+.logout-avatar:hover {
+    transform: scale(1.04);
+}
+
+@media (max-width: 640px) {
+    .topbar {
+        grid-template-columns: 54px 1fr 54px;
+        grid-template-areas: "menu title profile";
+        padding: 20px;
+        border-radius: 24px;
+    }
+
+    .dash-menu {
+        grid-area: menu;
+        justify-self: start;
+        width: 54px;
+        height: 54px;
+        border-radius: 16px;
+    }
+
+    .topbar-center {
+        grid-area: title;
+        text-align: center;
+        justify-self: center;
+        width: 100%;
+    }
+
+    .topbar-center h1 {
+        font-size: 26px;
+        line-height: 1.1;
+    }
+
+    .topbar-center p {
+        font-size: 13px;
+        line-height: 1.25;
+    }
+
+    .topbar-center small {
+        font-size: 11px;
+    }
+
+    .profile {
+        grid-area: profile;
+        width: auto;
+        justify-self: end;
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+    }
+
+    .logout-avatar {
+        width: 54px !important;
+        height: 54px !important;
+        min-height: 54px !important;
+    }
+}
+
+@media (max-width: 420px) {
+    .topbar {
+        grid-template-columns: 48px 1fr 48px;
+        gap: 10px;
+        padding: 16px;
+    }
+
+    .dash-menu,
+    .logout-avatar {
+        width: 48px !important;
+        height: 48px !important;
+        min-height: 48px !important;
+    }
+
+    .topbar-center h1 {
+        font-size: 22px;
+    }
+}
+
+
+/* =========================================================
+   FINAL FIX: MOBILE DASHBOARD HEADER
+   Left hamburger | Center name + email | Right round logout
+========================================================= */
+
+.topbar {
+    display: grid !important;
+    grid-template-columns: 64px 1fr 64px !important;
+    grid-template-areas: "menu title profile" !important;
+    align-items: center !important;
+    gap: 16px !important;
+}
+
+.dash-menu {
+    grid-area: menu !important;
+    justify-self: start !important;
+}
+
+.topbar-center {
+    grid-area: title !important;
+    text-align: center !important;
+    justify-self: center !important;
+    width: 100% !important;
+    min-width: 0 !important;
+}
+
+.profile {
+    grid-area: profile !important;
+    justify-self: end !important;
+    align-self: start !important;
+    width: auto !important;
+    display: flex !important;
+    align-items: flex-start !important;
+    justify-content: flex-end !important;
+}
+
+.logout-avatar {
+    width: 58px !important;
+    height: 58px !important;
+    min-width: 58px !important;
+    min-height: 58px !important;
+    padding: 0 !important;
+    border-radius: 50% !important;
+    border: 0 !important;
+    display: grid !important;
+    place-items: center !important;
+    background: #ef4444 !important;
+    color: #fff !important;
+    font-size: 20px !important;
+    font-weight: 900 !important;
+    line-height: 1 !important;
+}
+
+@media (max-width: 640px) {
+    .dash-main {
+        padding: 16px !important;
+    }
+
+    .topbar {
+        grid-template-columns: 64px 1fr 64px !important;
+        grid-template-areas: "menu title profile" !important;
+        align-items: start !important;
+        padding: 26px 24px !important;
+        border-radius: 28px !important;
+        min-height: 150px !important;
+    }
+
+    .dash-menu {
+        width: 64px !important;
+        height: 64px !important;
+        border-radius: 16px !important;
+        font-size: 30px !important;
+    }
+
+    .topbar-center {
+        padding-top: 0 !important;
+    }
+
+    .topbar-center h1 {
+        font-size: 30px !important;
+        line-height: 1.1 !important;
+        margin: 0 !important;
+        color: #082947 !important;
+    }
+
+    .topbar-center p {
+        margin: 4px 0 0 !important;
+        font-size: 15px !important;
+        line-height: 1.1 !important;
+        color: #008080 !important;
+        font-weight: 800 !important;
+        word-break: break-word !important;
+    }
+
+    .topbar-center small {
+        display: block !important;
+        margin-top: 4px !important;
+        font-size: 13px !important;
+        line-height: 1.1 !important;
+        color: #64748b !important;
+        font-weight: 500 !important;
+    }
+
+    .logout-avatar {
+        width: 58px !important;
+        height: 58px !important;
+        min-width: 58px !important;
+        min-height: 58px !important;
+    }
+}
+
+@media (max-width: 420px) {
+    .topbar {
+        grid-template-columns: 54px 1fr 54px !important;
+        gap: 10px !important;
+        padding: 20px 18px !important;
+        min-height: 135px !important;
+    }
+
+    .dash-menu,
+    .logout-avatar {
+        width: 54px !important;
+        height: 54px !important;
+        min-width: 54px !important;
+        min-height: 54px !important;
+    }
+
+    .topbar-center h1 {
+        font-size: 24px !important;
+    }
+
+    .topbar-center p {
+        font-size: 13px !important;
+    }
+
+    .topbar-center small {
+        font-size: 11px !important;
+    }
+}
+
+
+/* =========================================================
+   FINAL DESKTOP HEADER FIX ONLY
+   Mobile view is not changed.
+   Desktop design:
+   Left: Hi name + role text
+   Right: email pill + Logout button
+========================================================= */
+@media screen and (min-width: 769px) {
+
+    .dash-main {
+        padding: 30px 34px !important;
+    }
+
+    .topbar {
+        width: 100% !important;
+        min-height: 150px !important;
+        padding: 0 72px !important;
+        border-radius: 38px !important;
+
+        display: grid !important;
+        grid-template-columns: minmax(280px, 1fr) 142px !important;
+        grid-template-areas: "title logout" !important;
+        align-items: center !important;
+        gap: 28px !important;
+
+        position: relative !important;
+        background: #f2f7f7 !important;
+        box-shadow: none !important;
+    }
+
+    .topbar .dash-menu {
+        display: none !important;
+    }
+
+    .topbar-center {
+        grid-area: title !important;
+        justify-self: start !important;
+        align-self: center !important;
+        text-align: left !important;
+        width: auto !important;
+        min-width: 0 !important;
+        padding: 0 !important;
+    }
+
+    .topbar-center h1,
+    #greeting {
+        margin: 0 0 12px 0 !important;
+        padding: 0 !important;
+
+        color: #082947 !important;
+        font-size: clamp(34px, 2.7vw, 44px) !important;
+        font-weight: 900 !important;
+        line-height: 1 !important;
+
+        text-align: left !important;
+        white-space: nowrap !important;
+    }
+
+    .topbar-center small,
+    #roleText {
+        display: block !important;
+        margin: 0 !important;
+        padding: 0 !important;
+
+        color: #60708d !important;
+        font-size: clamp(16px, 1.2vw, 20px) !important;
+        font-weight: 400 !important;
+        line-height: 1.3 !important;
+
+        text-align: left !important;
+        white-space: nowrap !important;
+    }
+
+    /* Email pill moved to right side on desktop only */
+    .topbar-center p,
+    #profileEmail {
+        position: absolute !important;
+        right: 218px !important;
+        top: 50% !important;
+        transform: translateY(-50%) !important;
+
+        width: min(310px, 26vw) !important;
+        height: 68px !important;
+        padding: 0 24px !important;
+        margin: 0 !important;
+        border-radius: 18px !important;
+
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+
+        background: #f9ffff !important;
+        color: #008080 !important;
+
+        font-size: clamp(15px, 1.1vw, 18px) !important;
+        font-weight: 900 !important;
+        line-height: 1 !important;
+
+        white-space: nowrap !important;
+        overflow: hidden !important;
+        text-overflow: ellipsis !important;
+        text-align: center !important;
+        word-break: normal !important;
+    }
+
+    .profile {
+        grid-area: logout !important;
+        justify-self: end !important;
+        align-self: center !important;
+
+        width: auto !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: flex-end !important;
+        gap: 0 !important;
+    }
+
+    .profile span {
+        display: none !important;
+    }
+
+    .logout-avatar,
+    #logoutAvatar,
+    .profile button {
+        width: 142px !important;
+        min-width: 142px !important;
+        height: 68px !important;
+        min-height: 68px !important;
+        padding: 0 24px !important;
+
+        border: none !important;
+        border-radius: 18px !important;
+
+        background: #f44343 !important;
+        color: #ffffff !important;
+
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+
+        font-size: 0 !important;
+        font-weight: 900 !important;
+        line-height: 1 !important;
+
+        position: static !important;
+        transform: none !important;
+        cursor: pointer !important;
+    }
+
+    .logout-avatar::before,
+    #logoutAvatar::before,
+    .profile button::before {
+        content: "Logout" !important;
+        font-size: 17px !important;
+        font-weight: 900 !important;
+        color: #ffffff !important;
+    }
+}
+
+@media screen and (min-width: 769px) and (max-width: 1100px) {
+    .topbar {
+        padding: 0 44px !important;
+        grid-template-columns: minmax(220px, 1fr) 124px !important;
+    }
+
+    .topbar-center p,
+    #profileEmail {
+        right: 184px !important;
+        width: 260px !important;
+        height: 60px !important;
+    }
+
+    .logout-avatar,
+    #logoutAvatar,
+    .profile button {
+        width: 124px !important;
+        min-width: 124px !important;
+        height: 60px !important;
+        min-height: 60px !important;
+    }
+}
+
+
+/* =========================================================
+   FINAL MOBILE TOP OPEN FIX
+   Login to User/Admin dashboard always starts at header top.
+   Desktop design unchanged.
+========================================================= */
+@media screen and (max-width: 768px) {
+  html,
+  body {
+    margin: 0 !important;
+    padding: 0 !important;
+    overflow-x: hidden !important;
+    scroll-behavior: auto !important;
+  }
+
+  body.dashboard-open,
+  .dashboard,
+  .dashboard-page,
+  .dash-main,
+  .main-content {
+    scroll-margin-top: 0 !important;
+  }
+
+  .dashboard,
+  .dashboard-page,
+  .dash-main {
+    padding-top: 16px !important;
+  }
+
+  .topbar,
+  .top-header,
+  .dashboard-header {
+    margin-top: 0 !important;
+    scroll-margin-top: 0 !important;
+  }
+
+  .grid,
+  .cards,
+  .dashboard-cards {
+    margin-top: 24px !important;
+  }
+}
+
+
+/* =========================================================
+   GOOGLE PASSWORD MANAGER POPUP FIX
+   Use text input masked as password so Chrome will not show
+   "Use strong password" popup.
+========================================================= */
+.fake-password-input {
+  -webkit-text-security: disc !important;
+  text-security: disc !important;
+  font-family: Arial, sans-serif !important;
+}
+
+.fake-password-input::selection {
+  background: rgba(0, 128, 128, 0.2);
+}
+
+/* Hide any password manager extension overlays */
+[data-lastpass-icon-root],
+[data-lastpass-root],
+[data-1password-root],
+com-1password-button {
+  display: none !important;
+  visibility: hidden !important;
+  opacity: 0 !important;
+}

@@ -22,10 +22,19 @@ let currentName = "User";
 ========================= */
 
 window.addEventListener("load", () => {
+    const savedSession = JSON.parse(localStorage.getItem("stacklySession") || "null");
+
     setTimeout(() => {
         loader.style.display = "none";
         app.classList.remove("hide");
-    }, 3000);
+
+        if (savedSession && savedSession.email && savedSession.role) {
+            currentRole = savedSession.role;
+            currentEmail = savedSession.email;
+            currentName = savedSession.name || getNameFromEmail(currentEmail);
+            openDashboard(false);
+        }
+    }, 800);
 });
 
 /* =========================
@@ -145,15 +154,21 @@ document.getElementById("signupForm").addEventListener("submit", (event) => {
         return;
     }
 
-    localStorage.setItem(
-        "stacklyUser",
-        JSON.stringify({
-            role,
-            name,
-            email,
-            password
-        })
+    const users = JSON.parse(localStorage.getItem("stacklyUsers") || "[]");
+    const existingIndex = users.findIndex(
+        (user) => user.email === email && user.role === role
     );
+
+    const userData = { role, name, email, password };
+
+    if (existingIndex >= 0) {
+        users[existingIndex] = userData;
+    } else {
+        users.push(userData);
+    }
+
+    localStorage.setItem("stacklyUsers", JSON.stringify(users));
+    localStorage.setItem("stacklyUser", JSON.stringify(userData));
 
     showToast("Sign up successful!");
 
@@ -176,30 +191,40 @@ document.getElementById("loginForm").addEventListener("submit", (event) => {
     currentEmail = document.getElementById("loginEmail").value.trim();
 
     const password = document.getElementById("loginPassword").value;
-    const savedUser = JSON.parse(localStorage.getItem("stacklyUser") || "null");
+    const users = JSON.parse(localStorage.getItem("stacklyUsers") || "[]");
+    const oldSavedUser = JSON.parse(localStorage.getItem("stacklyUser") || "null");
+    const savedUser =
+        users.find((user) => user.email === currentEmail && user.role === currentRole) ||
+        (oldSavedUser &&
+        oldSavedUser.email === currentEmail &&
+        oldSavedUser.role === currentRole
+            ? oldSavedUser
+            : null);
 
-    if (
-        savedUser &&
-        savedUser.email === currentEmail &&
-        savedUser.password !== password
-    ) {
+    if (savedUser && savedUser.password !== password) {
         showToast("Invalid password", "error");
         return;
     }
 
-    currentName =
-        savedUser && savedUser.email === currentEmail
-            ? savedUser.name
-            : getNameFromEmail(currentEmail);
+    currentName = savedUser ? savedUser.name : getNameFromEmail(currentEmail);
 
-    openDashboard();
+    localStorage.setItem(
+        "stacklySession",
+        JSON.stringify({
+            role: currentRole,
+            email: currentEmail,
+            name: currentName
+        })
+    );
+
+    openDashboard(true);
 });
 
 /* =========================
    DASHBOARD
 ========================= */
 
-function openDashboard() {
+function openDashboard(showLoginMessage = true) {
     hidePages();
     closeMenus();
 
@@ -207,20 +232,22 @@ function openDashboard() {
 
     document.getElementById("profileEmail").textContent = currentEmail;
 
-    document.getElementById("greeting").textContent =
-        currentRole === "admin"
-            ? `Hello ${currentName}`
-            : `Hi ${currentName}`;
+    document.getElementById("greeting").textContent = `Hi ${currentName}`;
 
     document.getElementById("roleText").textContent =
         currentRole === "admin"
-            ? " Admin Banking Dashboard"
-            : " User Banking Dashboard";
+            ? "Admin Banking Dashboard"
+            : "User Banking Dashboard";
+
+    document.getElementById("logoutAvatar").textContent =
+        (currentName || currentRole || "U").charAt(0).toUpperCase();
 
     renderRoleContent();
     switchDashPage("dashboard");
 
-    showToast("Login successful!");
+    if (showLoginMessage) {
+        showToast(`${currentRole === "admin" ? "Admin" : "User"} login successful!`);
+    }
 }
 
 document.querySelectorAll(".side-link").forEach((button) => {
@@ -250,9 +277,18 @@ function switchDashPage(page) {
 }
 
 function logout() {
+    localStorage.removeItem("stacklySession");
+
+    currentRole = "user";
+    currentEmail = "";
+    currentName = "User";
+
+    document.getElementById("loginForm")?.reset();
+    document.getElementById("loginRole").value = "user";
+
     showToast("Logged out successfully!");
 
-    setTimeout(showLanding, 850);
+    setTimeout(showLogin, 850);
 }
 
 function renderRoleContent() {
@@ -653,3 +689,107 @@ function renderAdmin() {
         </div>
     `;
 }
+
+
+/* =========================================================
+   FINAL FIX: after User/Admin login, dashboard opens from TOP
+========================================================= */
+function openDashboardFromTop() {
+  requestAnimationFrame(() => {
+    window.scrollTo({ top: 0, left: 0, behavior: "auto" });
+
+    const dashboard =
+      document.querySelector(".dashboard-page") ||
+      document.querySelector(".dashboard") ||
+      document.querySelector(".dash-main") ||
+      document.querySelector(".main-content");
+
+    if (dashboard) {
+      dashboard.scrollTop = 0;
+    }
+
+    const header =
+      document.querySelector(".topbar") ||
+      document.querySelector(".top-header") ||
+      document.querySelector(".dashboard-header");
+
+    if (header) {
+      header.scrollIntoView({ block: "start", inline: "nearest", behavior: "auto" });
+    }
+
+    setTimeout(() => window.scrollTo(0, 0), 50);
+    setTimeout(() => window.scrollTo(0, 0), 150);
+  });
+}
+
+window.addEventListener("load", openDashboardFromTop);
+window.addEventListener("pageshow", openDashboardFromTop);
+
+document.addEventListener("click", function(e) {
+  const btn = e.target.closest("button, input[type='submit'], .login-btn, #loginBtn");
+  if (!btn) return;
+
+  const text = (btn.textContent || btn.value || "").toLowerCase();
+  if (text.includes("login")) {
+    setTimeout(openDashboardFromTop, 0);
+    setTimeout(openDashboardFromTop, 100);
+    setTimeout(openDashboardFromTop, 300);
+  }
+}, true);
+
+document.addEventListener("submit", function() {
+  setTimeout(openDashboardFromTop, 0);
+  setTimeout(openDashboardFromTop, 100);
+  setTimeout(openDashboardFromTop, 300);
+}, true);
+
+
+/* ================================
+   LOGOUT -> HOME PAGE
+================================ */
+
+document.addEventListener("DOMContentLoaded", () => {
+
+  const logoutBtn =
+    document.getElementById("logoutBtn") ||
+    document.querySelector(".logout-btn") ||
+    document.querySelector(".profile button");
+
+  if (logoutBtn) {
+
+    logoutBtn.textContent = "Logout";
+
+    logoutBtn.addEventListener("click", () => {
+
+      /* clear saved login data */
+      localStorage.clear();
+      sessionStorage.clear();
+
+      /* move to landing/home page */
+      window.location.href = "index.html";
+
+    });
+
+  }
+
+});
+
+
+/* =========================================================
+   FINAL GOOGLE PASSWORD MANAGER BLOCK
+========================================================= */
+document.addEventListener("DOMContentLoaded", function () {
+  document.querySelectorAll("form").forEach(form => {
+    form.setAttribute("autocomplete", "off");
+  });
+
+  document.querySelectorAll(".fake-password-input").forEach(input => {
+    input.type = "text";
+    input.setAttribute("autocomplete", "off");
+    input.setAttribute("data-lpignore", "true");
+    input.setAttribute("data-1p-ignore", "true");
+    input.setAttribute("spellcheck", "false");
+    input.setAttribute("autocorrect", "off");
+    input.setAttribute("autocapitalize", "off");
+  });
+});

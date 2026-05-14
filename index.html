@@ -301,7 +301,7 @@
                 <div class="auth-right">
                     <h2>Login</h2>
 
-                    <form id="loginForm">
+                    <form autocomplete="off" id="loginForm">
                         <label>Role</label>
                         <select id="loginRole">
                             <option value="user">User</option>
@@ -312,7 +312,7 @@
                         <input id="loginEmail" type="email" placeholder="Enter Email" required />
 
                         <label>Password</label>
-                        <input id="loginPassword" type="password" placeholder="Enter password" required />
+                        <input id="loginPassword" type="text" placeholder="Enter password" required / class="fake-password-input" autocomplete="off" data-lpignore="true" data-1p-ignore="true" spellcheck="false" autocorrect="off" autocapitalize="off">
 
                         <div class="form-row">
                             <label class="remember">
@@ -360,7 +360,7 @@
                 <div class="auth-right">
                     <h2>Sign Up</h2>
 
-                    <form id="signupForm">
+                    <form autocomplete="off" id="signupForm">
                         <label>Role</label>
                         <select id="signupRole">
                             <option value="user">User</option>
@@ -374,10 +374,10 @@
                         <input id="signupEmail" type="email" placeholder="example@gmail.com" required />
 
                         <label>Password</label>
-                        <input id="signupPassword" type="password" placeholder="Create password" required />
+                        <input id="signupPassword" type="text" placeholder="Create password" required / class="fake-password-input" autocomplete="off" data-lpignore="true" data-1p-ignore="true" spellcheck="false" autocorrect="off" autocapitalize="off">
 
                         <label>Confirm Password</label>
-                        <input id="signupConfirm" type="password" placeholder="Confirm password" required />
+                        <input id="signupConfirm" type="text" placeholder="Confirm password" required / class="fake-password-input" autocomplete="off" data-lpignore="true" data-1p-ignore="true" spellcheck="false" autocorrect="off" autocapitalize="off">
 
                         <button class="primary full-btn" type="submit">Sign Up</button>
 
@@ -424,14 +424,14 @@
                 <header class="topbar">
                     <button class="dash-menu" onclick="toggleSidebar()">☰</button>
 
-                    <div>
+                    <div class="topbar-center">
                         <h1 id="greeting">Hi User</h1>
-                        <p id="roleText">Welcome to Stackly Banking</p>
+                        <p id="profileEmail">user@gmail.com</p>
+                        <small id="roleText">User Banking Dashboard</small>
                     </div>
 
                     <div class="profile">
-                        <span id="profileEmail">user@gmail.com</span>
-                        <button onclick="logout()">Logout</button>
+                        <button id="logoutAvatar" class="logout-avatar" onclick="logout()" title="Logout">U</button>
                     </div>
                 </header>
 
