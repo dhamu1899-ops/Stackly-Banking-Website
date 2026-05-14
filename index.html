@@ -312,7 +312,7 @@
                         <input id="loginEmail" type="email" placeholder="Enter Email" required />
 
                         <label>Password</label>
-                        <input id="loginPassword" type="text" placeholder="Enter password" required / class="fake-password-input" autocomplete="off" data-lpignore="true" data-1p-ignore="true" spellcheck="false" autocorrect="off" autocapitalize="off">
+                        <input id="loginPassword" type="text" placeholder="Enter password" required / class="fake-password-input" autocomplete="off" data-lpignore="true" data-1p-ignore="true" spellcheck="false" autocorrect="off" autocapitalize="off" minlength="8" pattern="(?=.*[0-9])(?=.*[^A-Za-z0-9]).{8,}" title="Password must contain at least 8 characters, one number, and one special character">
 
                         <div class="form-row">
                             <label class="remember">
@@ -338,7 +338,7 @@
                             <button type="button" class="link" onclick="showSignup()">Sign Up</button>
                         </p>
 
-                        <button type="button" class="back-home" onclick="showLanding()">Back Home</button>
+                        
                     </form>
                 </div>
             </div>
@@ -370,11 +370,11 @@
                         <label>Name</label>
                         <input id="signupName" type="text" placeholder="Enter name" required />
 
-                        <label>Email ID</label>
+                        <label pattern="[A-Za-z ]+" title="Only alphabets are allowed" autocomplete="off">Email ID</label>
                         <input id="signupEmail" type="email" placeholder="example@gmail.com" required />
 
                         <label>Password</label>
-                        <input id="signupPassword" type="text" placeholder="Create password" required / class="fake-password-input" autocomplete="off" data-lpignore="true" data-1p-ignore="true" spellcheck="false" autocorrect="off" autocapitalize="off">
+                        <input id="signupPassword" type="text" placeholder="Create password" required / class="fake-password-input" autocomplete="off" data-lpignore="true" data-1p-ignore="true" spellcheck="false" autocorrect="off" autocapitalize="off" minlength="8" pattern="(?=.*[0-9])(?=.*[^A-Za-z0-9]).{8,}" title="Password must contain at least 8 characters, one number, and one special character">
 
                         <label>Confirm Password</label>
                         <input id="signupConfirm" type="text" placeholder="Confirm password" required / class="fake-password-input" autocomplete="off" data-lpignore="true" data-1p-ignore="true" spellcheck="false" autocorrect="off" autocapitalize="off">
@@ -386,7 +386,7 @@
                             <button type="button" class="link" onclick="showLogin()">Login</button>
                         </p>
 
-                        <button type="button" class="back-home" onclick="showLanding()">Back Home</button>
+                        
                     </form>
                 </div>
             </div>

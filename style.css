@@ -2347,3 +2347,65 @@ com-1password-button {
   visibility: hidden !important;
   opacity: 0 !important;
 }
+
+
+/* =========================================================
+   FINAL REQUEST PATCH - KEEP EXISTING LOGIN/SIGNUP DESIGN
+   Remove only landing/home/back-home UI
+========================================================= */
+#landingPage,
+.landing-page,
+#homePage,
+.home-page,
+.home,
+.landing,
+.hero-section,
+.hero,
+.welcome-page,
+.welcome-section {
+    display: none !important;
+    visibility: hidden !important;
+    opacity: 0 !important;
+    pointer-events: none !important;
+}
+
+.back-home,
+.back-btn,
+.back-button,
+.home-btn,
+#backBtn {
+    display: none !important;
+    visibility: hidden !important;
+    opacity: 0 !important;
+    pointer-events: none !important;
+}
+
+/* Inline message box - no popup alert */
+#pageMessageBox,
+.page-message {
+    width: 100%;
+    margin: 0 0 14px 0;
+    padding: 12px 14px;
+    border-radius: 12px;
+    font-size: 14px;
+    font-weight: 700;
+    text-align: center;
+    line-height: 1.4;
+    display: none;
+}
+
+#pageMessageBox.error,
+.page-message.error {
+    display: block;
+    background: #fee2e2;
+    color: #991b1b;
+    border: 1px solid #fecaca;
+}
+
+#pageMessageBox.success,
+.page-message.success {
+    display: block;
+    background: #dcfce7;
+    color: #166534;
+    border: 1px solid #bbf7d0;
+}

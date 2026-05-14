@@ -793,3 +793,233 @@ document.addEventListener("DOMContentLoaded", function () {
     input.setAttribute("autocapitalize", "off");
   });
 });
+
+
+/* =========================================================
+   FINAL REQUEST PATCH
+   - Loading opens Login page directly
+   - Landing/Home removed
+   - Logout navigates Login page
+   - Sign page back-to-home removed
+   - Name only characters, no numeric values
+   - Password requires 8 chars + 1 number + 1 special char
+   - Popup alert replaced by inline page message
+========================================================= */
+
+function showPageMessage(message, type = "error") {
+    let box = document.getElementById("pageMessageBox");
+
+    if (!box) {
+        box = document.createElement("div");
+        box.id = "pageMessageBox";
+        box.className = "page-message";
+
+        const target =
+            document.querySelector("#loginForm") ||
+            document.querySelector("#signupForm") ||
+            document.querySelector(".auth-card") ||
+            document.querySelector(".login-card") ||
+            document.querySelector(".form-box") ||
+            document.querySelector("form") ||
+            document.body;
+
+        if (target && target !== document.body && target.tagName && target.tagName.toLowerCase() === "form") {
+            target.prepend(box);
+        } else if (target && target !== document.body) {
+            target.prepend(box);
+        } else {
+            document.body.prepend(box);
+        }
+    }
+
+    box.textContent = message || "";
+    box.className = "page-message " + type;
+    box.style.display = message ? "block" : "none";
+}
+
+function clearPageMessage() {
+    const box = document.getElementById("pageMessageBox");
+    if (box) {
+        box.textContent = "";
+        box.className = "page-message";
+        box.style.display = "none";
+    }
+}
+
+function hideLandingAndHomeOnly() {
+    document.querySelectorAll(
+        "#landingPage, .landing-page, #homePage, .home-page, .home, .landing, .hero-section, .hero, .welcome-page, .welcome-section"
+    ).forEach(el => {
+        el.style.display = "none";
+        el.classList.add("hidden");
+    });
+
+    document.querySelectorAll(".back-home, .back-btn, .back-button, .home-btn, #backBtn").forEach(el => {
+        el.remove();
+    });
+}
+
+function openLoginPageOnly() {
+    hideLandingAndHomeOnly();
+
+    if (typeof showLogin === "function") {
+        try {
+            showLogin();
+        } catch (e) {}
+    }
+
+    const loginTargets = document.querySelectorAll(
+        "#loginPage, .login-page, #authPage, .auth-page, .auth-container, .login-container, .login-section"
+    );
+
+    loginTargets.forEach(el => {
+        el.style.display = "";
+        el.classList.remove("hidden");
+    });
+
+    const signupTargets = document.querySelectorAll(
+        "#signupPage, .signup-page, .signup-section"
+    );
+
+    signupTargets.forEach(el => {
+        if (!el.closest(".auth-container") && !el.closest(".auth-page")) {
+            el.style.display = "";
+        }
+    });
+
+    window.scrollTo({ top: 0, left: 0, behavior: "auto" });
+}
+
+/* Override old home/landing function to login page */
+function showLanding() {
+    openLoginPageOnly();
+}
+
+function goHome() {
+    openLoginPageOnly();
+}
+
+function isStrongPassword(password) {
+    return /^(?=.*[0-9])(?=.*[^A-Za-z0-9]).{8,}$/.test(password);
+}
+
+function setupFinalValidation() {
+    hideLandingAndHomeOnly();
+
+    const nameInputs = document.querySelectorAll(
+        '#signupName, #name, input[name="name"], input[name="fullName"], input[placeholder*="name" i]'
+    );
+
+    nameInputs.forEach(input => {
+        input.setAttribute("pattern", "[A-Za-z ]+");
+        input.setAttribute("title", "Only alphabets are allowed");
+        input.setAttribute("autocomplete", "off");
+
+        if (!input.dataset.alphaOnlyBound) {
+            input.dataset.alphaOnlyBound = "true";
+            input.addEventListener("input", function () {
+                const cleaned = this.value.replace(/[^A-Za-z\s]/g, "");
+                if (this.value !== cleaned) {
+                    this.value = cleaned;
+                    showPageMessage("Name allows alphabets only. Numeric values are not allowed.", "error");
+                }
+            });
+        }
+    });
+
+    const passwordInputs = document.querySelectorAll(
+        'input[type="password"], #loginPassword, #signupPassword, #password, #passcodeField, .fake-password-input'
+    );
+
+    passwordInputs.forEach(input => {
+        input.setAttribute("minlength", "8");
+        input.setAttribute("pattern", "(?=.*[0-9])(?=.*[^A-Za-z0-9]).{8,}");
+        input.setAttribute("title", "Password must contain at least 8 characters, one number, and one special character");
+        input.setAttribute("autocomplete", "new-password");
+
+        if (!input.dataset.passwordRuleBound) {
+            input.dataset.passwordRuleBound = "true";
+            input.addEventListener("input", function () {
+                if (this.value.length > 0 && !isStrongPassword(this.value)) {
+                    showPageMessage("Password must contain at least 8 characters, one number, and one special character.", "error");
+                } else {
+                    clearPageMessage();
+                }
+            });
+        }
+    });
+
+    document.querySelectorAll("form").forEach(form => {
+        form.setAttribute("autocomplete", "off");
+
+        if (!form.dataset.finalValidationBound) {
+            form.dataset.finalValidationBound = "true";
+            form.addEventListener("submit", function (event) {
+                const name = form.querySelector(
+                    '#signupName, #name, input[name="name"], input[name="fullName"], input[placeholder*="name" i]'
+                );
+
+                if (name && name.value.trim() && !/^[A-Za-z\s]+$/.test(name.value.trim())) {
+                    event.preventDefault();
+                    event.stopPropagation();
+                    showPageMessage("Name allows alphabets only. Numeric values are not allowed.", "error");
+                    name.focus();
+                    return false;
+                }
+
+                const password = form.querySelector(
+                    'input[type="password"], #loginPassword, #signupPassword, #password, #passcodeField, .fake-password-input'
+                );
+
+                if (password && !isStrongPassword(password.value)) {
+                    event.preventDefault();
+                    event.stopPropagation();
+                    showPageMessage("Password must contain at least 8 characters, one number, and one special character.", "error");
+                    password.focus();
+                    return false;
+                }
+            }, true);
+        }
+    });
+}
+
+function setupLogoutToLogin() {
+    const logoutButtons = document.querySelectorAll(
+        "#logoutBtn, .logout-btn, .logout, .profile button, button[aria-label='Logout']"
+    );
+
+    logoutButtons.forEach(btn => {
+        btn.type = "button";
+        btn.textContent = "Logout";
+
+        btn.onclick = function (event) {
+            event.preventDefault();
+            event.stopPropagation();
+
+            localStorage.removeItem("activeUser");
+            localStorage.removeItem("activeRole");
+            localStorage.removeItem("activeStacklySession");
+            sessionStorage.clear();
+
+            document.querySelectorAll("form").forEach(form => {
+                try { form.reset(); } catch(e) {}
+            });
+
+            openLoginPageOnly();
+            showPageMessage("Logged out successfully.", "success");
+            return false;
+        };
+    });
+}
+
+document.addEventListener("DOMContentLoaded", function () {
+    setupFinalValidation();
+    setupLogoutToLogin();
+    openLoginPageOnly();
+});
+
+window.addEventListener("load", function () {
+    setupFinalValidation();
+    setupLogoutToLogin();
+    openLoginPageOnly();
+});
