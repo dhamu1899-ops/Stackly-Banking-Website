@@ -259,6 +259,25 @@ document.querySelectorAll(".side-link").forEach((button) => {
         }
     });
 });
+/* =========================
+   STACKLY LOGO CLICK FIX
+========================= */
+
+document.addEventListener("click", function (e) {
+    const logo = e.target.closest(
+        ".brand-logo, .footer-logo, .auth-logo, .side-logo, .loader-logo-img, .not-logo"
+    );
+
+    if (!logo) return;
+
+    localStorage.removeItem("stacklySession");
+
+    location.reload();
+
+    setTimeout(() => {
+        showLogin();
+    }, 100);
+});
 
 function switchDashPage(page) {
     document.querySelectorAll(".side-link").forEach((button) => {
